@@ -15,46 +15,20 @@ using System.Windows.Shapes;
 
 namespace SimplyOrder {
     public partial class MainWindow : Window {
-        
+
         //Initialize menu
         private void InitMenu(Category category) {
             for (int i = 0; i < foods[(int)category].Length; i++) {
 
                 InitFood(foods[(int)category][i], i);
+                InitCustom(foods[(int)category][i], i);
             }
-        }
-
-        enum Category { Bestsellers, Burgers, Steaks, SaladSandwichs, AppetizersSoups, Omelettes, Kids, Drinks, DessertsShakes };
-        Food[][] foods;
-
-        Dictionary<string, double>[] ReqCus = { new Dictionary<string, double> {
-                { "Large", 1.00 },
-                { "Medium", 1.00 },
-                { "Small", 1.00 }
-            }
-        };
-        Dictionary<string, double>[] OptCus = { new Dictionary<string, double> {
-                { "Cheese", 1.00 },
-                { "Meat", 1.00 },
-                { "Small", 1.00 }
-            }
-        };
-
-        //Load hard coded food info
-        private void LoadFood() {
-            foods = new Food[10][];
-            Food test = new Food("test", 100, "this is a test food", ReqCus, OptCus);
-            Food test2 = new Food("test2", 100, "this is another test food", ReqCus, OptCus);
-            Food test3 = new Food("test3", 100, "this is another test food", ReqCus, OptCus);
-            Food test4 = new Food("test4", 100, "this is another test food", ReqCus, OptCus);
-            Food test5 = new Food("test5", 100, "this is another test food", ReqCus, OptCus);
-            foods[(int)Category.Bestsellers] = new[] { test, test2, test3, test4, test5 };
         }
 
         //Init a food in menu
         private void InitFood(Food f, int i) {
             Grid mg = new Grid();
-            mg.Name = f.Name + "mg";
+            mg.DataContext = f;
             mg.Width = double.NaN;
             mg.Height = 150;
             mg.Margin = new Thickness(10, 10, 10, 10);
@@ -65,7 +39,6 @@ namespace SimplyOrder {
             mg.Children.Add(b);
 
             Grid g = new Grid();
-            g.Name = f.Name + "g";
             ColumnDefinition c1 = new ColumnDefinition();
             c1.Width = new GridLength(5, GridUnitType.Star);
             ColumnDefinition c2 = new ColumnDefinition();
@@ -93,7 +66,6 @@ namespace SimplyOrder {
             g.Children.Add(icon);
 
             Button btn = new Button();
-            btn.Name = f.Name;
             btn.AddHandler(Button.ClickEvent, new RoutedEventHandler(MenuClicked));
             btn.Background = Brushes.Transparent;
 
@@ -125,20 +97,37 @@ namespace SimplyOrder {
             return price;
         }
 
-        //Ecent handler
+        //Event handler
+        static Grid dropdown = null;
         private void MenuClicked(object sender, RoutedEventArgs e) {
             Button mg = sender as Button;
-            Label icon = FindName(mg.Name + "Icon") as Label;
+            Label icon = FindName(((Food)mg.DataContext).Name + "Icon") as Label;
             if ((string)icon.Content == "Up") {
                 icon.Content = "Down";
             } else {
                 icon.Content = "Up";
             }
+
+            Grid cg = FindName(((Food)mg.DataContext).Name + "cg") as Grid;
+            if (cg.Visibility == Visibility.Visible) {
+                cg.Visibility = Visibility.Collapsed;
+            } else if (cg.Visibility == Visibility.Collapsed) {
+                cg.Visibility = Visibility.Visible;
+            }
+            if (dropdown != null && dropdown != cg) {
+                dropdown.Visibility = Visibility.Collapsed;
+            }
+            dropdown = cg;
+
+
+
             Grid p = FindName("Pivot") as Grid;
             ScrollViewer sv = FindName("MenuSV") as ScrollViewer;
             Point pos = mg.TransformToAncestor(p).Transform(new Point(0, 0));
-            sv.ScrollToVerticalOffset(pos.Y);
-            MessageBox.Show(pos.Y + "");
+            sv.ScrollToVerticalOffset(pos.Y - 10);
         }
+
+       
+
     }
 }

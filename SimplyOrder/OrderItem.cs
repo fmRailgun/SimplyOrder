@@ -7,33 +7,31 @@ using System.Threading.Tasks;
 namespace SimplyOrder
 {
     class OrderItem{
-        public string Name;
-        public int Count;
-        public double BasicPrice;
-        public double Price;
-        Dictionary<string, bool> ReqCustom;
-        Dictionary<string, bool> OptCustom;
-        public OrderItem(string name, double basicPrice, Dictionary<string, bool> reqCustom, Dictionary<string, bool> optCustom) {
-            this.Name = name;
-            this.Count = 0;
-            this.BasicPrice = basicPrice;
-            this.Price = basicPrice;
+        public Food Food { set; get; }
+        public int Count { set; get; }
+        public double Price { set; get; }
+        public string Name { set; get; }
 
-            //Error Checking
-            bool found = false;
-            foreach(KeyValuePair<string, bool> entry in this.ReqCustom) {
-                if (entry.Value) {
-                    if (found) {
-                        throw new System.ArgumentException("Can only choose one");
+        public OrderItem(Food food) {
+            this.Food = food;
+            this.Count = 1;
+            this.Price = Food.Price;
+            this.Name = Food.Name;
+            for(int i=0; i<Food.RequiredCustom.Length; i++) {
+                ReqCustom curr = Food.RequiredCustom[i];
+                this.Name += curr.Options[curr.Selected].Name;
+            }
+            for (int i = 0; i < Food.RequiredCustom.Length; i++) {
+                foreach (Option option in Food.RequiredCustom[i].Options) {
+                    if(option.Selected){
+                        this.Name += option.Name; 
                     }
-                    found = true;
                 }
             }
-            if (!found) {
-                throw new System.ArgumentException("Need to choose at least one");
-            }
-            this.ReqCustom = reqCustom;
-            this.OptCustom = optCustom;
+        }
+
+        public double CalculatePrice() {
+            return this.Count * this.Price;
         }
     }
 }

@@ -8,46 +8,72 @@ namespace SimplyOrder{
     
     class Food{
         public string Name { get; set; }
+        public double BasicPrice { get; set; }
         public double Price { get; set; }
         public string Desciption { get; set; }
 
-        Dictionary<string, double> [] ReqCustom;
-        Dictionary<string, double> [] OptCustom;
+        public ReqCustom[] RequiredCustom { get; set; }
+        public OptCustom[] OptionalCustom { get; set; }
+        
+        public int OptionCount { get; set; }
 
-        public int ReqCustomeCount = 0;
-        public int OptCustomeCount = 0;
-
-        public Food(string name, double price, string desc, Dictionary<string, double> [] reqCustom, Dictionary<string, double> [] optCustom) {
+        public Food(string name, double price, string desc) {
             this.Name = name;
+            this.BasicPrice = price;
             this.Price = price;
             this.Desciption = desc;
-            this.ReqCustom = reqCustom;
-            this.OptCustom = optCustom;
-            this.ReqCustomeCount = reqCustom.Length;
-            this.OptCustomeCount = optCustom.Length;
+        }
+
+        public Food(string name, double price, string desc, ReqCustom[] reqCustom, OptCustom[] optCustom) {
+            this.Name = name;
+            this.BasicPrice = price;
+            this.Price = price;
+            this.Desciption = desc;
+            this.RequiredCustom = reqCustom;
+            this.OptionalCustom = optCustom;
+
+            for (int i = 0; i < RequiredCustom.Length; i++) {
+                OptionCount += RequiredCustom[i].Options.Length;
+            }
+
+            for (int i = 0; i < OptionalCustom.Length; i++) {
+                OptionCount += OptionalCustom[i].Options.Length;
+            }
 
             //Error Checking
             if (Math.Abs(this.Price * 100 % 100) > 0.0000001) {
                 throw new System.ArgumentException("The price can only have two decimal places " + Math.Abs(this.Price * 100 % 100));
             }
+        }
 
-            //Check the number of decimal places
-            for (int i = 0; i < ReqCustomeCount; i++) {
-                foreach (KeyValuePair<string, double> entry in this.ReqCustom[i]) {
-                    if (Math.Abs(entry.Value * 100 % 100) > 0.0000001) {
-                        throw new System.ArgumentException("The customization price can only have two decimal places");
-                    }
-                }
+        public void CalculatePrice() {
+            this.Price = this.BasicPrice;
+            for (int i = 0; i < RequiredCustom.Length; i++) {
+                this.Price += RequiredCustom[i].Options[RequiredCustom[i].Selected].Price;
             }
 
-            //Check the number of decimal places
-            for (int i = 0; i < OptCustomeCount; i++) {
-                foreach (KeyValuePair<string, double> entry in this.OptCustom[i]) {
-                    if (Math.Abs(entry.Value * 100 % 100) > 0.0000001) {
-                        throw new System.ArgumentException("The customization price can only have two decimal places");
+            for (int i = 0; i < OptionalCustom.Length; i++) {
+                foreach (Option option in OptionalCustom[i].Options) {
+                    if (option.Selected) {
+                        this.Price += option.Price;
                     }
                 }
             }
         }
+
+        public static Food Clone(Food food) {
+            Food result = new Food(food.Name, food.Price, food.Desciption);
+            result.OptionCount = food.OptionCount;
+            result.RequiredCustom = new ReqCustom[food.RequiredCustom.Length];
+            for(int i = 0; i < food.RequiredCustom.Length; i++) {
+                result.RequiredCustom[i] = ReqCustom.Clone(food.RequiredCustom[i]);
+            }
+            result.OptionalCustom = new OptCustom[food.OptionalCustom.Length];
+            for (int i = 0; i < food.OptionalCustom.Length; i++) {
+                result.OptionalCustom[i] = OptCustom.Clone(food.OptionalCustom[i]);
+            }
+            return result;
+        }
+
     }
 }
