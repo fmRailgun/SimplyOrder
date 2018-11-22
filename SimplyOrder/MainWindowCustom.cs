@@ -262,7 +262,9 @@ namespace SimplyOrder {
             Button add = sender as Button;
 
             OrderItem order = new OrderItem(Food.Clone((Food)add.DataContext));
-            foreach(OrderItem existingOrder in orderList) {
+            Food f = (Food)add.DataContext;
+            MessageBox.Show(order.Name);
+            foreach (OrderItem existingOrder in orderList) {
                 if (existingOrder.Name == order.Name) {
                     Button plus = FindName(order.Name + "plus") as Button;
                     plus.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));

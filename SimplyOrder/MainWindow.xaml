@@ -67,13 +67,13 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.8*" />
-                <ColumnDefinition Width="3*" />
-                <ColumnDefinition Width="1.2*" />
+                <ColumnDefinition Width="4.2*" />
             </Grid.ColumnDefinitions>
 
             <!--Menu sidebar-->
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
+                    <RowDefinition  Height="1.5*"/>
                     <RowDefinition  Height="*"/>
                     <RowDefinition  Height="*"/>
                     <RowDefinition  Height="*"/>
@@ -85,46 +85,59 @@
                     <RowDefinition  Height="*"/>
                     <RowDefinition  Height="*"/>
                 </Grid.RowDefinitions>
-
-                <Button x:Name="bestseller" Content="Bestsellers"  Grid.Row ="0"/>
-                <Button Content="Burgers" Grid.Row ="1"></Button>
-                <Button Content="Steaks" Grid.Row ="2"></Button>
-                <Button Content="Salads &amp; Sandwichs" Grid.Row ="3"></Button>
-                <Button Content="Appetizers &amp; Soups" Grid.Row ="4"></Button>
-                <Button Content="Omelettes" Grid.Row ="5"></Button>
-                <Button Content="Kids" Grid.Row ="6"></Button>
-                <Button Content="Sides" Grid.Row ="7"></Button>
-                <Button Content="Drinks" Grid.Row ="8"></Button>
-                <Button Content="Desserts &amp; Shakes" Grid.Row ="9"></Button>
+                
+                <!--add icon-->
+                <Button x:Name="bestseller" Content="Bestsellers"  Grid.Row ="1"/>
+                <Button Content="Burgers" Grid.Row ="2"></Button>
+                <Button Content="Steaks" Grid.Row ="3"></Button>
+                <Button Content="Salads &amp; Sandwichs" Grid.Row ="4"></Button>
+                <Button Content="Appetizers &amp; Soups" Grid.Row ="5"></Button>
+                <Button Content="Omelettes" Grid.Row ="6"></Button>
+                <Button Content="Kids" Grid.Row ="7"></Button>
+                <Button Content="Sides" Grid.Row ="8"></Button>
+                <Button Content="Drinks" Grid.Row ="9"></Button>
+                <Button Content="Desserts &amp; Shakes" Grid.Row ="10"></Button>
 
             </Grid>
 
             <!--Menu Middle-->
-            <ScrollViewer Grid.Column="1" x:Name="MenuSV">
-                <Grid x:Name="Pivot">
-                    <StackPanel x:Name="Menu">
-                    </StackPanel>
-                </Grid>
-
-            </ScrollViewer>
-
-            <!--Order Summary-->
-            <Grid Grid.Column="2">
+            <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="8*" />
-                    <RowDefinition Height="2*" />
+                    <RowDefinition  Height="1.5*"/>
+                    <RowDefinition  Height="10*"/>
                 </Grid.RowDefinitions>
 
-                <ScrollViewer Grid.Row="0">
-                    <StackPanel x:Name="Order">
-                        
-                    </StackPanel>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="1.2*" />
+                </Grid.ColumnDefinitions>
+
+                <ScrollViewer Grid.Column="0" Grid.Row="1" x:Name="MenuSV">
+                    <Grid x:Name="Pivot">
+                        <StackPanel x:Name="Menu">
+                        </StackPanel>
+                    </Grid>
+
                 </ScrollViewer>
 
-                <Grid  Grid.Row="1">
-                    <Button x:Name="send" Margin="70 40 10 10" Content="Send" Width="60" Height="30"/>
-                </Grid>
+                <!--Order Summary-->
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="8*" />
+                        <RowDefinition Height="2*" />
+                    </Grid.RowDefinitions>
 
+                    <ScrollViewer Grid.Row="0">
+                        <StackPanel x:Name="Order">
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <Grid  Grid.Row="1">
+                        <Button x:Name="send" Margin="70 30 10 10" Content="Send" Width="60" Height="30"/>
+                    </Grid>
+
+                </Grid>
             </Grid>
 
         </Grid>

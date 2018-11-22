@@ -35,11 +35,11 @@ namespace SimplyOrder {
             og.Children.Add(b);
 
             RowDefinition cr1 = new RowDefinition();
-            cr1.Height = new GridLength(1, GridUnitType.Star);
             RowDefinition cr2 = new RowDefinition();
-            cr2.Height = new GridLength(2, GridUnitType.Star);
+            RowDefinition cr3 = new RowDefinition();
             g.RowDefinitions.Add(cr1);
             g.RowDefinitions.Add(cr2);
+            g.RowDefinitions.Add(cr3);
 
             ColumnDefinition cc1 = new ColumnDefinition();
             cc1.Width = new GridLength(3, GridUnitType.Star);
@@ -47,7 +47,9 @@ namespace SimplyOrder {
             cc2.Width = new GridLength(1, GridUnitType.Star);
             g.ColumnDefinitions.Add(cc1);
             g.ColumnDefinitions.Add(cc2);
-            
+
+
+            g.Children.Add(InitCusInfo(order));
             g.Children.Add(InitOrderPrice(order));
             g.Children.Add(InitOrderName(order));
             g.Children.Add(InitOrderDuplication(order));
@@ -57,10 +59,44 @@ namespace SimplyOrder {
 
         }
 
+        private StackPanel InitCusInfo(OrderItem order) {
+            StackPanel cus = new StackPanel();
+            cus.SetValue(Grid.ColumnProperty, 0);
+            cus.SetValue(Grid.RowProperty, 1);
+            Food food = order.Food;
+            int count = food.RequiredCustom.Length*1;
+            foreach (OptCustom optCustom in food.OptionalCustom) {
+                foreach(Option option in optCustom.Options) {
+                    if (option.Selected == true) {
+                        count += 1;
+                    }
+                }
+            }
+
+            foreach (ReqCustom reqCustom in food.RequiredCustom) {
+                Label opt = new Label();
+                opt.Content = reqCustom.Options[reqCustom.Selected].Name;
+                opt.Height = 30;
+                cus.Children.Add(opt);
+            }
+
+            foreach (OptCustom optCustom in food.OptionalCustom) {
+                foreach (Option option in optCustom.Options) {
+                    if (option.Selected) {
+                        Label opt = new Label();
+                        opt.Content = option.Name;
+                        opt.Height = 30;
+                        cus.Children.Add(opt);
+                    }
+                }
+            }
+            return cus;
+        }
+
         private Label InitOrderPrice(OrderItem order) {
             Label price = new Label();
             price.SetValue(Grid.ColumnProperty, 1);
-            price.SetValue(Grid.RowSpanProperty, 2);
+            price.SetValue(Grid.RowSpanProperty, 3);
             price.DataContext = order;
             this.RegisterName(order.Name + "price", price);
             price.Content = order.Price;
@@ -77,7 +113,7 @@ namespace SimplyOrder {
 
         private Grid InitOrderDuplication(OrderItem order) {
             Grid dup = new Grid();
-            dup.SetValue(Grid.RowProperty, 1);
+            dup.SetValue(Grid.RowProperty, 2);
             dup.SetValue(Grid.ColumnProperty, 0);
             dup.DataContext = order;
 

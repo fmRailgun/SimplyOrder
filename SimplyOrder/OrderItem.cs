@@ -17,12 +17,13 @@ namespace SimplyOrder
             this.Count = 1;
             this.Price = Food.Price;
             this.Name = Food.Name;
-            for(int i=0; i<Food.RequiredCustom.Length; i++) {
+
+            for (int i=0; i<Food.RequiredCustom.Length; i++) {
                 ReqCustom curr = Food.RequiredCustom[i];
                 this.Name += curr.Options[curr.Selected].Name;
             }
-            for (int i = 0; i < Food.RequiredCustom.Length; i++) {
-                foreach (Option option in Food.RequiredCustom[i].Options) {
+            for (int i = 0; i < Food.OptionalCustom.Length; i++) {
+                foreach (Option option in Food.OptionalCustom[i].Options) {
                     if(option.Selected){
                         this.Name += option.Name; 
                     }
