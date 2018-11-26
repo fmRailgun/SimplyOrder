@@ -101,5 +101,20 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Denny%27s_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="slamstemp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FF.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Burgerbanner.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Titlescreen.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

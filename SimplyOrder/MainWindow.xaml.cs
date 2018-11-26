@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -23,8 +24,25 @@ namespace SimplyOrder {
             LoadFood();
             InitializeComponent();
             InitMenu(Category.Bestsellers);
+            Storyboard sb = this.FindResource("TaptoStart") as Storyboard; //by David Ledo (davidledo.com/cpsc481/#!blemd-intro.md)
+            sb.Completed += OnStoryboardCompleted; //also by David Ledo
         }
 
+        //This method is by David Ledo (davidledo.com/cpsc481/#!blemd-intro.md)
+        private void OnStoryboardCompleted(object sender, EventArgs e)
+        {
+            this.SplashGrid.Visibility = Visibility.Hidden;
+        }
+
+        private void MenuSV_ManipulationBoundaryFeedback(object sender, ManipulationBoundaryFeedbackEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ScrollViewer_ManipulationBoundaryFeedback(object sender, ManipulationBoundaryFeedbackEventArgs e)
+        {
+            e.Handled = true;
+        }
     }
    
 }

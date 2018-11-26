@@ -44,10 +44,10 @@ namespace SimplyOrder {
             foods = new Food[10][];
             Food test = new Food("test", 100, "this is a test food", "url", ReqCus, OptCus);
             Food test2 = new Food("test2", 100, "this is another test food", "url", ReqCus, OptCus);
-            //Food test3 = new Food("test3", 100, "this is another test food", ReqCus, OptCus);
-            //Food test4 = new Food("test4", 100, "this is another test food", ReqCus, OptCus);
-            //Food test5 = new Food("test5", 100, "this is another test food", ReqCus, OptCus);
-            foods[(int)Category.Bestsellers] = new[] { test, test2 };
+            Food test3 = new Food("test3", 100, "this is another test food", "url", ReqCus, OptCus);
+            Food test4 = new Food("test4", 100, "this is another test food", "url", ReqCus, OptCus);
+            Food test5 = new Food("test5", 100, "this is another test food", "url",  ReqCus, OptCus);
+            foods[(int)Category.Bestsellers] = new[] { test, test2, test3, test4, test5 };
         }
 
     }

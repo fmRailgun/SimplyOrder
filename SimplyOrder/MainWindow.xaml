@@ -62,7 +62,22 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Storyboard x:Key="TaptoStart">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="SplashImage">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="-430"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="SplashImage">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="UIElement.MouseLeftButtonDown" SourceName="SplashImage">
+            <BeginStoryboard Storyboard="{StaticResource TaptoStart}"/>
+        </EventTrigger>
+    </Window.Triggers>
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -85,7 +100,7 @@
                     <RowDefinition  Height="*"/>
                     <RowDefinition  Height="*"/>
                 </Grid.RowDefinitions>
-                
+
                 <!--add icon-->
                 <Button x:Name="bestseller" Content="Bestsellers"  Grid.Row ="1"/>
                 <Button Content="Burgers" Grid.Row ="2"></Button>
@@ -97,6 +112,7 @@
                 <Button Content="Sides" Grid.Row ="8"></Button>
                 <Button Content="Drinks" Grid.Row ="9"></Button>
                 <Button Content="Desserts &amp; Shakes" Grid.Row ="10"></Button>
+                <Image x:Name="Logo" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="117" Source="Denny's_logo.png" Margin="10,0,0,0"/>
 
             </Grid>
 
@@ -112,7 +128,7 @@
                     <ColumnDefinition Width="1.2*" />
                 </Grid.ColumnDefinitions>
 
-                <ScrollViewer Grid.Column="0" Grid.Row="1" x:Name="MenuSV">
+                <ScrollViewer Grid.Column="0" Grid.Row="1" x:Name="MenuSV" PanningMode="Both" ManipulationBoundaryFeedback="MenuSV_ManipulationBoundaryFeedback">
                     <Grid x:Name="Pivot">
                         <StackPanel x:Name="Menu">
                         </StackPanel>
@@ -127,7 +143,7 @@
                         <RowDefinition Height="2*" />
                     </Grid.RowDefinitions>
 
-                    <ScrollViewer Grid.Row="0">
+                    <ScrollViewer Grid.Row="0" PanningMode="Both" ManipulationBoundaryFeedback="ScrollViewer_ManipulationBoundaryFeedback">
                         <StackPanel x:Name="Order">
 
                         </StackPanel>
@@ -149,6 +165,7 @@
                     </Grid>
 
                 </Grid>
+                <Image x:Name="bannerTemp" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="477" Source="FF.PNG" Stretch="UniformToFill"/>
             </Grid>
 
         </Grid>
@@ -168,6 +185,18 @@
             <Border BorderBrush="Black" BorderThickness="2" Grid.Row="1" Grid.Column="1">
                 <Label Content="This is a pop-up"/>
             </Border>
+        </Grid>
+        <Grid x:Name="SplashGrid" Height="422.5" VerticalAlignment="Top">
+            <Image x:Name="SplashImage" HorizontalAlignment="Left" Height="422.5" VerticalAlignment="Top" Width="795" Source="Titlescreen.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
         </Grid>
     </Grid>
 </Window>
