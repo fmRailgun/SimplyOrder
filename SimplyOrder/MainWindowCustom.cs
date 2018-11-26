@@ -80,6 +80,7 @@ namespace SimplyOrder {
             price.Content = f.Price;
             price.VerticalAlignment = VerticalAlignment.Bottom;
             p.Children.Add(price);
+            this.RegisterName(f.Name + "price", price);
             price.Name = f.Name + "price";
 
             Button add = new Button();
@@ -247,6 +248,11 @@ namespace SimplyOrder {
 
             Grid cus = rd.Parent as Grid;
             ((Food)cus.DataContext).CalculatePrice();
+
+            double price = ((Food)cus.DataContext).Price;
+
+            Label p = FindName(((Food)cus.DataContext).Name + "price") as Label;
+            p.Content = price;
         }
 
         private void CheckBoxClicked(object sender, RoutedEventArgs e) {
@@ -256,6 +262,10 @@ namespace SimplyOrder {
             ((OptCustom)cb.DataContext).Select((string)cb.Content);
             Grid cus = cb.Parent as Grid;
             ((Food)cus.DataContext).CalculatePrice();
+            double price = ((Food)cus.DataContext).Price;
+
+            Label p = FindName(((Food)cus.DataContext).Name + "price") as Label;
+            p.Content = price;
         }
 
         private void AddClicked(object sender, RoutedEventArgs e) {

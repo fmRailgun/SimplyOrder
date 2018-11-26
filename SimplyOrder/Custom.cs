@@ -47,7 +47,7 @@ namespace SimplyOrder {
 
             int counter = 0;
             foreach (KeyValuePair<string, double> entry in options) {
-                if (counter == 0) {
+                if (counter == 1) {
                     Option option = new Option(entry.Key, entry.Value, true);
                     Options[counter] = option;
                 } else {
