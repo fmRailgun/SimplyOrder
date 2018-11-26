@@ -134,7 +134,18 @@
                     </ScrollViewer>
 
                     <Grid  Grid.Row="1">
-                        <Button x:Name="send" Margin="70 30 10 10" Content="Send" Width="60" Height="30"/>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="3*" />
+                                <RowDefinition Height="2*" />
+                            </Grid.RowDefinitions>
+
+                            <Label x:Name="subTotal" Grid.Row="0" Content="0.0" HorizontalAlignment="Left"/>
+                            <Label x:Name="tax" Grid.Row="0" Content="0.0" HorizontalAlignment="Center"/>
+                            <Label x:Name="total" Grid.Row="0" Content="0.0" HorizontalAlignment="Right"/>
+
+                            <Button x:Name="sendOrder" Margin="70 30 10 10" Grid.Row="1" Content="Send" Width="60" Height="30"/>
+                        </Grid>
                     </Grid>
 
                 </Grid>

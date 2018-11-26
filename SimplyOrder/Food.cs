@@ -11,6 +11,7 @@ namespace SimplyOrder{
         public double BasicPrice { get; set; }
         public double Price { get; set; }
         public string Desciption { get; set; }
+        public string imagePath { get; set; }
 
         public ReqCustom[] RequiredCustom { get; set; }
         public OptCustom[] OptionalCustom { get; set; }
@@ -24,13 +25,14 @@ namespace SimplyOrder{
             this.Desciption = desc;
         }
 
-        public Food(string name, double price, string desc, ReqCustom[] reqCustom, OptCustom[] optCustom) {
+        public Food(string name, double price, string desc, string imagePath, ReqCustom[] reqCustom, OptCustom[] optCustom) {
             this.Name = name;
             this.BasicPrice = price;
             this.Price = price;
             this.Desciption = desc;
             this.RequiredCustom = reqCustom;
             this.OptionalCustom = optCustom;
+            this.imagePath = imagePath;
 
             for (int i = 0; i < RequiredCustom.Length; i++) {
                 OptionCount += RequiredCustom[i].Options.Length;

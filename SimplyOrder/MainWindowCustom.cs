@@ -281,7 +281,8 @@ namespace SimplyOrder {
                     return;
                 }
             }
-            InitOrder(order);
+            InitOrder(order);  
+            UpdateOrderPrice();
         }
        
 

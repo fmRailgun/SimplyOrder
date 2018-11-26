@@ -16,7 +16,23 @@ using System.Windows.Shapes;
 namespace SimplyOrder {
     public partial class MainWindow : Window {
 
-        List<OrderItem> orderList = new List<OrderItem>(0);
+        static List<OrderItem> orderList = new List<OrderItem>(0);
+
+        public void UpdateOrderPrice() {
+            double subTotal = 0.0;
+            double tax = 0.0;
+            foreach(OrderItem orderItem in orderList) {
+                subTotal += orderItem.CalculatePrice();
+            }
+            tax = Math.Round(subTotal * 0.05, 2);
+            double total = subTotal + tax;
+            Label subTotalLabel = FindName("subTotal") as Label;
+            subTotalLabel.Content = subTotal;
+            Label totalLabel = FindName("total") as Label;
+            totalLabel.Content = total;
+            Label taxLabel = FindName("tax") as Label;
+            taxLabel.Content = tax;
+        }
 
         private void InitOrder(OrderItem order) {
 
@@ -98,7 +114,7 @@ namespace SimplyOrder {
             price.SetValue(Grid.ColumnProperty, 1);
             price.SetValue(Grid.RowSpanProperty, 3);
             price.DataContext = order;
-            this.RegisterName(order.Name + "price", price);
+            this.RegisterName(order.Name + "orderprice", price);
             price.Content = order.Price;
             return price;
         }
@@ -163,8 +179,9 @@ namespace SimplyOrder {
             Label counter = FindName(order.Name+"counter") as Label;
             counter.Content = order.Count;
 
-            Label price = FindName(order.Name + "price") as Label;
+            Label price = FindName(order.Name + "orderprice") as Label;
             price.Content = order.CalculatePrice();
+            UpdateOrderPrice();
         }
 
         private void MinusClicked(object sender, RoutedEventArgs e) {
@@ -173,12 +190,13 @@ namespace SimplyOrder {
             OrderItem order = minus.DataContext as OrderItem;
 
             order.Count--;
+            UpdateOrderPrice();
             if (order.Count == 0) {
                 orderList.Remove(order);
                 Grid og = FindName(order.Name + "og") as Grid;
                 Order.Children.Remove(og);
                 UnregisterName(order.Name+ "og");
-                UnregisterName(order.Name+ "price");
+                UnregisterName(order.Name+ "orderprice");
                 UnregisterName(order.Name + "counter");
                 UnregisterName(order.Name + "plus");
                 return;
@@ -187,7 +205,7 @@ namespace SimplyOrder {
             Label counter = FindName(order.Name + "counter") as Label;
             counter.Content = order.Count;
 
-            Label price = FindName(order.Name + "price") as Label;
+            Label price = FindName(order.Name + "orderprice") as Label;
             price.Content = order.CalculatePrice();
         }
 
