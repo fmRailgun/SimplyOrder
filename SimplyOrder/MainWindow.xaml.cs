@@ -43,6 +43,19 @@ namespace SimplyOrder {
         {
             e.Handled = true;
         }
+        
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            
+            IEnumerable<Button> buttonList = grid1.Children.OfType<Button>();
+            foreach(Button bb in buttonList)
+            {
+                bb.Background = new SolidColorBrush(Color.FromRgb(177, 17, 22));
+            }
+            Button b = (Button)sender;
+            b.Background = new SolidColorBrush(Color.FromRgb(237, 28, 36));
+            
+        }
     }
-   
-}
+
+    }

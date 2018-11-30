@@ -72,12 +72,47 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        
+        
+        
+        <Style x:Key="CategoryButton" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="#FFB11116"/>
+            <Setter Property="BorderBrush" Value="{x:Null}"/>
+            <Setter Property="Foreground" Value="#FFD99895"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="FontStretch" Value="Condensed"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" Value="#FFED1C24"/>
+                                <Setter Property="BorderBrush" Value="#FFED1C24"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        
+        
     </Window.Resources>
     <Window.Triggers>
         <EventTrigger RoutedEvent="UIElement.MouseLeftButtonDown" SourceName="SplashImage">
             <BeginStoryboard Storyboard="{StaticResource TaptoStart}"/>
         </EventTrigger>
     </Window.Triggers>
+    
+    
+    
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -86,7 +121,7 @@
             </Grid.ColumnDefinitions>
 
             <!--Menu sidebar-->
-            <Grid Grid.Column="0">
+            <Grid x:Name="ButtonListGrid" Grid.Column="0" Background="#FFB11116">
                 <Grid.RowDefinitions>
                     <RowDefinition  Height="1.5*"/>
                     <RowDefinition  Height="*"/>
@@ -102,25 +137,27 @@
                 </Grid.RowDefinitions>
 
                 <!--add icon-->
-                <Button x:Name="bestseller" Content="Bestsellers"  Grid.Row ="1"/>
-                <Button Content="Burgers" Grid.Row ="2"></Button>
-                <Button Content="Steaks" Grid.Row ="3"></Button>
-                <Button Content="Salads &amp; Sandwichs" Grid.Row ="4"></Button>
-                <Button Content="Appetizers &amp; Soups" Grid.Row ="5"></Button>
-                <Button Content="Omelettes" Grid.Row ="6"></Button>
-                <Button Content="Kids" Grid.Row ="7"></Button>
-                <Button Content="Sides" Grid.Row ="8"></Button>
-                <Button Content="Drinks" Grid.Row ="9"></Button>
-                <Button Content="Desserts &amp; Shakes" Grid.Row ="10"></Button>
-                <Image x:Name="Logo" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="117" Source="Denny's_logo.png" Margin="10,0,0,0"/>
+                <Button Content="FESTIVE FLAVORS"           Grid.Row ="1"   ClickMode="Press" Style="{DynamicResource CategoryButton}" Click="Button_Click"/>
+                <Button Content="SLAMS"                     Grid.Row ="2"   ClickMode="Press" Style="{DynamicResource CategoryButton}" Click="Button_Click"/>
+                <Button Content="PANCAKES"                  Grid.Row ="3"   ClickMode="Press" Style="{DynamicResource CategoryButton}" Click="Button_Click"/>
+                <Button Content="OMELETTES"                 Grid.Row ="4"   ClickMode="Press" Style="{DynamicResource CategoryButton}" Click="Button_Click"/>
+                <Button Content="BREAKFAST FAVES"           Grid.Row ="5"   ClickMode="Press" Style="{DynamicResource CategoryButton}" Click="Button_Click"/>
+                <Button Content="APPETIZERS &amp; SOUPS"    Grid.Row ="6"   ClickMode="Press" Style="{DynamicResource CategoryButton}" Click="Button_Click"/>
+                <Button Content="100% BEEF BURGERS"         Grid.Row ="7"   ClickMode="Press" Style="{DynamicResource CategoryButton}" Click="Button_Click"/>
+                <Button Content="SALADS"   Grid.Row ="8"   ClickMode="Press" Style="{DynamicResource CategoryButton}" Click="Button_Click"/>
+                <Button Content="DRINKS"                    Grid.Row ="9"   ClickMode="Press" Style="{DynamicResource CategoryButton}" Click="Button_Click"/>
+                <Button Content="DESSERTS &amp; SHAKES"     Grid.Row ="10"  ClickMode="Press" Style="{DynamicResource CategoryButton}" Click="Button_Click"/>
+                <Image Source="Denny's_logo.png" Stretch="Fill"/>
 
             </Grid>
 
+            <Grid x:Name="RedBar" Grid.Column="1" Background="#FFED1C24"/>
+
             <!--Menu Middle-->
-            <Grid Grid.Column="1">
+            <Grid x:Name="MenuAndOrder" Grid.Column="1" Background="#FFF5F3EB" Margin="16.8,0,0,0">
                 <Grid.RowDefinitions>
-                    <RowDefinition  Height="1.5*"/>
-                    <RowDefinition  Height="10*"/>
+                    <RowDefinition  Height="11*"/>
+                    <RowDefinition Height="73*"/>
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -128,28 +165,31 @@
                     <ColumnDefinition Width="1.2*" />
                 </Grid.ColumnDefinitions>
 
-                <ScrollViewer Grid.Column="0" Grid.Row="1" x:Name="MenuSV" PanningMode="Both" ManipulationBoundaryFeedback="MenuSV_ManipulationBoundaryFeedback">
+                <ScrollViewer Grid.Column="0" Grid.Row="1" x:Name="MenuSV" PanningMode="Both" ManipulationBoundaryFeedback="MenuSV_ManipulationBoundaryFeedback" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                     <Grid x:Name="Pivot">
                         <StackPanel x:Name="Menu">
                         </StackPanel>
                     </Grid>
+                    <ScrollViewer.Background>
+                        <ImageBrush ImageSource="background texture.jpg"/>
+                    </ScrollViewer.Background>
 
                 </ScrollViewer>
 
                 <!--Order Summary-->
-                <Grid Grid.Column="1" Grid.Row="1">
+                <Grid x:Name="OrderSummaryGrid" Grid.Column="1" Grid.Row="1" Background="#FFF5F3EB">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="8*" />
                         <RowDefinition Height="2*" />
                     </Grid.RowDefinitions>
 
-                    <ScrollViewer Grid.Row="0" PanningMode="Both" ManipulationBoundaryFeedback="ScrollViewer_ManipulationBoundaryFeedback">
+                    <ScrollViewer x:Name="OrderScrollViewer" Grid.Row="0" PanningMode="Both" ManipulationBoundaryFeedback="ScrollViewer_ManipulationBoundaryFeedback" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                         <StackPanel x:Name="Order">
 
                         </StackPanel>
                     </ScrollViewer>
 
-                    <Grid  Grid.Row="1">
+                    <Grid x:Name="BillGrid"  Grid.Row="1">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="3*" />
@@ -165,7 +205,7 @@
                     </Grid>
 
                 </Grid>
-                <Image x:Name="bannerTemp" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="477" Source="FF.PNG" Stretch="UniformToFill"/>
+                <Image Source="FF.PNG" Stretch="Fill"/>
             </Grid>
 
         </Grid>
@@ -186,7 +226,7 @@
                 <Label Content="This is a pop-up"/>
             </Border>
         </Grid>
-        <Grid x:Name="SplashGrid" Height="422.5" VerticalAlignment="Top">
+        <Grid x:Name="SplashGrid" Height="422.5" VerticalAlignment="Top" d:IsHidden="True">
             <Image x:Name="SplashImage" HorizontalAlignment="Left" Height="422.5" VerticalAlignment="Top" Width="795" Source="Titlescreen.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
                 <Image.RenderTransform>
                     <TransformGroup>

@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("titlescreen.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("back.jpg")]
 
 
