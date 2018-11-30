@@ -19,7 +19,7 @@ namespace SimplyOrder {
 
         private void InitCustom(Food f, int i) {
 
-            int height = f.OptionCount * 20 + 50;
+            int height = f.OptionCount * 20 + 150;
 
             Grid cg = new Grid();
             cg.DataContext = f;
@@ -109,7 +109,7 @@ namespace SimplyOrder {
 
             Grid scg = new Grid();
             sc.Content = scg;
-            sc.Height = 150;
+            sc.Height = f.OptionCount * 20; 
 
             ColumnDefinition c1 = new ColumnDefinition();
             c1.Width = new GridLength(1, GridUnitType.Star);

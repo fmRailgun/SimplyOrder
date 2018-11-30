@@ -72,9 +72,9 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-        
-        
-        
+
+
+
         <Style x:Key="CategoryButton" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="#FFB11116"/>
@@ -101,26 +101,27 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
-        
-        
+
+
+
     </Window.Resources>
     <Window.Triggers>
         <EventTrigger RoutedEvent="UIElement.MouseLeftButtonDown" SourceName="SplashImage">
             <BeginStoryboard Storyboard="{StaticResource TaptoStart}"/>
         </EventTrigger>
     </Window.Triggers>
-    
-    
-    
+
+
+
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.8*" />
-                <ColumnDefinition Width="4.2*" />
+                <ColumnDefinition Width="110*" />
+                <ColumnDefinition Width="15*" />
+                <ColumnDefinition Width="480*" />
+                <ColumnDefinition Width="200*" />
             </Grid.ColumnDefinitions>
 
-            <!--Menu sidebar-->
             <Grid x:Name="ButtonListGrid" Grid.Column="0" Background="#FFB11116">
                 <Grid.RowDefinitions>
                     <RowDefinition  Height="1.5*"/>
@@ -144,69 +145,71 @@
                 <Button Content="BREAKFAST FAVES"           Grid.Row ="5"   ClickMode="Press" Style="{DynamicResource CategoryButton}" Click="Button_Click"/>
                 <Button Content="APPETIZERS &amp; SOUPS"    Grid.Row ="6"   ClickMode="Press" Style="{DynamicResource CategoryButton}" Click="Button_Click"/>
                 <Button Content="100% BEEF BURGERS"         Grid.Row ="7"   ClickMode="Press" Style="{DynamicResource CategoryButton}" Click="Button_Click"/>
-                <Button Content="SALADS"   Grid.Row ="8"   ClickMode="Press" Style="{DynamicResource CategoryButton}" Click="Button_Click"/>
+                <Button Content="SALADS"                    Grid.Row ="8"   ClickMode="Press" Style="{DynamicResource CategoryButton}" Click="Button_Click"/>
                 <Button Content="DRINKS"                    Grid.Row ="9"   ClickMode="Press" Style="{DynamicResource CategoryButton}" Click="Button_Click"/>
                 <Button Content="DESSERTS &amp; SHAKES"     Grid.Row ="10"  ClickMode="Press" Style="{DynamicResource CategoryButton}" Click="Button_Click"/>
                 <Image Source="Denny's_logo.png" Stretch="Fill"/>
-
             </Grid>
 
             <Grid x:Name="RedBar" Grid.Column="1" Background="#FFED1C24"/>
 
-            <!--Menu Middle-->
-            <Grid x:Name="MenuAndOrder" Grid.Column="1" Background="#FFF5F3EB" Margin="16.8,0,0,0">
+            <Grid x:Name="MainMenu" Grid.Column="2" Background="#FFF5F3EB">
                 <Grid.RowDefinitions>
-                    <RowDefinition  Height="11*"/>
-                    <RowDefinition Height="73*"/>
+                    <RowDefinition  Height="1.5*"/>
+                    <RowDefinition  Height="10*"/>
                 </Grid.RowDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="1.2*" />
-                </Grid.ColumnDefinitions>
+                <Image Source="FF.PNG" Stretch="Fill" Grid.Row="0"/>
 
-                <ScrollViewer Grid.Column="0" Grid.Row="1" x:Name="MenuSV" PanningMode="Both" ManipulationBoundaryFeedback="MenuSV_ManipulationBoundaryFeedback" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                    <Grid x:Name="Pivot">
-                        <StackPanel x:Name="Menu">
-                        </StackPanel>
-                    </Grid>
+                <ScrollViewer x:Name="MenuSV" Grid.Row="1" PanningMode="Both" ManipulationBoundaryFeedback="MenuSV_ManipulationBoundaryFeedback" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    
                     <ScrollViewer.Background>
                         <ImageBrush ImageSource="background texture.jpg"/>
                     </ScrollViewer.Background>
+                    
+                    <Grid x:Name="Pivot">
+                        <StackPanel x:Name="Menu"/>
+                    </Grid>
+                    
+                </ScrollViewer>
+                
+            </Grid>
 
+            <Grid x:Name="OrderSummaryGrid" Background="#FFF5F3EB" Grid.Column="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.5*" />
+                    <RowDefinition Height="8*" />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+
+                <ScrollViewer x:Name="OrderScrollViewer" Grid.Row="1" PanningMode="Both" ManipulationBoundaryFeedback="ScrollViewer_ManipulationBoundaryFeedback" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <StackPanel x:Name="Order"/>
                 </ScrollViewer>
 
-                <!--Order Summary-->
-                <Grid x:Name="OrderSummaryGrid" Grid.Column="1" Grid.Row="1" Background="#FFF5F3EB">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="8*" />
-                        <RowDefinition Height="2*" />
-                    </Grid.RowDefinitions>
+                <Grid x:Name="BillGrid"  Grid.Row="2">
+                    <Grid x:Name="grid" Grid.Column="4">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="1.5*" />
+                            <RowDefinition Height="0.5*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="0.2*"/>
+                        </Grid.ColumnDefinitions>
 
-                    <ScrollViewer x:Name="OrderScrollViewer" Grid.Row="0" PanningMode="Both" ManipulationBoundaryFeedback="ScrollViewer_ManipulationBoundaryFeedback" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                        <StackPanel x:Name="Order">
-
-                        </StackPanel>
-                    </ScrollViewer>
-
-                    <Grid x:Name="BillGrid"  Grid.Row="1">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="3*" />
-                                <RowDefinition Height="2*" />
-                            </Grid.RowDefinitions>
-
-                            <Label x:Name="subTotal" Grid.Row="0" Content="0.0" HorizontalAlignment="Left"/>
-                            <Label x:Name="tax" Grid.Row="0" Content="0.0" HorizontalAlignment="Center"/>
-                            <Label x:Name="total" Grid.Row="0" Content="0.0" HorizontalAlignment="Right"/>
-
-                            <Button x:Name="sendOrder" Margin="70 30 10 10" Grid.Row="1" Content="Send" Width="60" Height="30"/>
-                        </Grid>
+                        <Label x:Name="subTotal" Grid.Row="0" Grid.Column="0" Content="0.0" HorizontalAlignment="Center"/>
+                        <Label x:Name="tax" Grid.Row="0" Grid.Column="1" Content="0.0" HorizontalAlignment="Center"/>
+                        <Label x:Name="total" Grid.Row="0" Grid.Column="2" Content="0.0" HorizontalAlignment="Center"/>
+                        <Button Content="Button" Grid.Row="1" Grid.Column="2"/>
                     </Grid>
-
                 </Grid>
-                <Image Source="FF.PNG" Stretch="Fill"/>
+
             </Grid>
+
+            <!--Menu Middle-->
 
         </Grid>
 

@@ -37,6 +37,30 @@ namespace SimplyOrder {
                     { "Small", 1.00 }
                 }
             ),
+            new OptCustom ( "Size3",
+                new Dictionary<string, double>
+                {
+                    { "Large", 1.00 },
+                    { "Medium", 1.00 },
+                    { "Small", 1.00 }
+                }
+            ),
+            new OptCustom ( "Size3",
+                new Dictionary<string, double>
+                {
+                    { "Large", 1.00 },
+                    { "Medium", 1.00 },
+                    { "Small", 1.00 }
+                }
+            ),
+            new OptCustom ( "Size3",
+                new Dictionary<string, double>
+                {
+                    { "Large", 1.00 },
+                    { "Medium", 1.00 },
+                    { "Small", 1.00 }
+                }
+            ),
         };
 
         ReqCustom[] ReqCus2 = {
