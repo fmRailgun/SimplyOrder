@@ -24,14 +24,14 @@ namespace SimplyOrder {
             LoadFood();
             InitializeComponent();
             InitMenu(Category.Bestsellers);
-            Storyboard sb = this.FindResource("TaptoStart") as Storyboard; //by David Ledo (davidledo.com/cpsc481/#!blemd-intro.md)
+            Storyboard sb = this.FindResource("Fade") as Storyboard; //by David Ledo (davidledo.com/cpsc481/#!blemd-intro.md)
             sb.Completed += OnStoryboardCompleted; //also by David Ledo
         }
 
-        //This method is by David Ledo (davidledo.com/cpsc481/#!blemd-intro.md)
         private void OnStoryboardCompleted(object sender, EventArgs e)
         {
             this.SplashGrid.Visibility = Visibility.Hidden;
+            this.Mask.Visibility = Visibility.Hidden;
         }
 
         private void MenuSV_ManipulationBoundaryFeedback(object sender, ManipulationBoundaryFeedbackEventArgs e)
@@ -56,6 +56,7 @@ namespace SimplyOrder {
             b.Background = new SolidColorBrush(Color.FromRgb(237, 28, 36));
             
         }
+
     }
 
     }

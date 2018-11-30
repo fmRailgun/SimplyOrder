@@ -27,12 +27,15 @@ namespace SimplyOrder {
             cg.Height = height;
             cg.Margin = new Thickness(15, 0, 15, 10);
             cg.Visibility = Visibility.Collapsed;
+            cg.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+
             this.RegisterName(f.Name + "cg", cg);
 
 
             Border b = new Border();
-            b.BorderBrush = System.Windows.Media.Brushes.Black;
-            b.BorderThickness = new Thickness(2);
+            b.BorderBrush = System.Windows.Media.Brushes.Cyan;
+            b.BorderThickness = new Thickness(5);
+            
             cg.Children.Add(b);
 
             Grid g = new Grid();
@@ -60,11 +63,19 @@ namespace SimplyOrder {
 
         //Init description
         private Label InitDesc(Food f) {
-            Label desc = new Label();
-            desc.Padding = new Thickness(10, 10, 10, 10);
+            Label desc = new Label
+            {
+                Content = f.Desciption,
+                FontFamily = new FontFamily("Arial"),
+                FontSize = 20
+            };
+            desc.HorizontalAlignment = HorizontalAlignment.Center;
+            desc.VerticalAlignment = VerticalAlignment.Center;
+            
             desc.SetValue(Grid.RowProperty, 0);
             desc.SetValue(Grid.ColumnSpanProperty, 2);
-            desc.Content = f.Desciption;
+            
+
             return desc;
         }
 
